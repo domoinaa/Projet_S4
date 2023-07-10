@@ -20,15 +20,15 @@ insert into User values (null, 'Stephan', 60, 67, 'Homme', 190, 'Stephan');
 create table Regime(
     idRegime int primary key auto_increment,
     Nom varchar(100),
-    Prix int
+    Prix int,
+    valeur int
 );
 
-insert into Regime values (null, 'lasagnes riche en viande et en fromage', 40000);
-insert into Regime values (null, 'poulet cordon bleu', 60000);
-insert into Regime values (null, 'smoothie riche en calorie', 45000);
-
-insert into Regime values (null, 'salade de poulet grillé', 50000);
-insert into Regime values (null, 'nouilles de courgettes avec sauce tomate', 40000);
+insert into Regime values (null, 'lasagnes riche en viande et en fromage', 40000, 10);
+insert into Regime values (null, 'poulet cordon bleu', 60000, 5);
+insert into Regime values (null, 'smoothie riche en calorie', 45000, 5);
+insert into Regime values (null, 'salade de poulet grillé', 50000, 7);
+insert into Regime values (null, 'nouilles de courgettes avec sauce tomate', 40000, 10);
 
 create table Objectif(
     idObjectif int primary key auto_increment,
@@ -36,14 +36,7 @@ create table Objectif(
     descri text
 );
 insert into Objectif values (null, ' Augmenter son poids', "Epanouissez-vous en prenant soin de votre corps: Explorez les avantages d'un poids équilibré !");
-insert into Objectif values (null, '  Réduire son poids', "Découvrez les bienfaits d'une vie légère et saine: Adoptez une approche équilibrée pour réduire votre poids !");
-
-create table PorteMonnaie(
-    idPorteMonnaie int primary key auto_increment,
-    idUser int,
-    montant int,
-    foreign key (idUser) references User(idUser)
-);
+insert into Objectif values (null, ' Réduire son poids', "Découvrez les bienfaits d'une vie légère et saine: Adoptez une approche équilibrée pour réduire votre poids !");
 
 create table RegimeObjectif(
     idRegimeObjectif int primary key auto_increment,
@@ -51,7 +44,7 @@ create table RegimeObjectif(
     idObjectif int,
     genre varchar(100),
     foreign key (idRegime) references Regime(idRegime),
-    foreign key (idObjectif) references Regime(idObjectif)
+    foreign key (idObjectif) references Objectif(idObjectif)
 );
 
 insert into RegimeObjectif values (null, 1, 1, 'femme');
@@ -62,22 +55,23 @@ insert into RegimeObjectif values (null, 5, 2, 'homme');
 
 create table Sport(
     idSport int primary key auto_increment,
-    Nom varchar(100)
+    Nom varchar(100),
+    valeur int
 );
 
-insert into Sport values (null, 'vélo');
-insert into Sport values (null, 'natation');
-insert into Sport values (null, 'danse cardio');
-insert into Sport values (null, 'Sport de combat');
-insert into Sport values (null, 'musculation');
+insert into Sport values (null, 'vélo',10);
+insert into Sport values (null, 'natation',7);
+insert into Sport values (null, 'danse cardio',5);
+insert into Sport values (null, 'Sport de combat',15);
+insert into Sport values (null, 'musculation',7);
 
 create table SportObjectif(
     idSportObjectif int primary key auto_increment,
-    idRegime int,
+    idSport int,
     idObjectif int,
     genre varchar(100),
-    foreign key (idRegime) references Regime(idRegime),
-    foreign key (idObjectif) references Regime(idObjectif)
+    foreign key (idSport) references Sport(idSport),
+    foreign key (idObjectif) references Objectif(idObjectif)
 );
 
 insert into SportObjectif values (null, 1, 2, 'femme');
@@ -93,39 +87,60 @@ create table PorteMonnaie(
     foreign key (idUser) references User(idUser)
 );
 
-insert into PorteMonnaie values (null, );
+insert into PorteMonnaie values (null,1,50000);
+insert into PorteMonnaie values (null,2,20000);
+insert into PorteMonnaie values (null,3,25000);
+insert into PorteMonnaie values (null,4,15000);
+insert into PorteMonnaie values (null,5,30000);
 
 create table Code(
     idCode int primary key auto_increment,
     valeur int
 );
 
-insert into Code values (null, );
+insert into Code values (null,10000);
+insert into Code values (null,20000);
+insert into Code values (null,30000);
+insert into Code values (null,15000);
+insert into Code values (null,10000);
+insert into Code values (null,20000);
+insert into Code values (null,30000);
+insert into Code values (null,40000);
+insert into Code values (null,50000);
+insert into Code values (null,55000);
+insert into Code values (null,35000);
+insert into Code values (null,22000);
+insert into Code values (null,10000);
+insert into Code values (null,40000);
+insert into Code values (null,30000);
+insert into Code values (null,25000);
 
-create table SuiviRegime(
-    idSuiviRegime int primary key auto_increment,
-    idUser int,
-    duree int,
-    foreign key (idUser) references User(idUser)
-);
+-- create table SuiviRegime(
+--     idSuiviRegime int primary key auto_increment,
+--     idUser int,
+--     duree int,
+--     foreign key (idUser) references User(idUser)
+-- );
 
-create or repolace view RegimeParRapportObjectif as 
+create or replace view RegimeParRapportObjectif as 
 select
 RO.idRegimeObjectif,
 r.idRegime,
 r.Nom,
 r.prix,
+r.valeur,
 RO.genre
 from RegimeObjectif as RO
 JOIN Regime as r 
 on RO.idRegime = r.idRegime;
 
-create view SportParRapportObjectif as 
+create or replace view SportParRapportObjectif as 
 select
-RO.idSportObjectif,
+SO.idSportObjectif,
 s.idSport,
 s.Nom,
-RO.genre
-from SportObjectif as RO
+s.valeur,
+SO.genre
+from SportObjectif as SO
 JOIN Sport as s 
-on RO.idSport = s.idSport;
+on SO.idSport = s.idSport;
