@@ -38,5 +38,31 @@ class Welcome extends CI_Controller {
 		}
     }
 
+	public function get_inscription()
+	{
+		$this->load->model("Function");
+		$nom = $this->input->post('nom');
+		$mdp = $this->input->post('mdp');
+		$Age = $this->input->post('$Age');
+		$Poids = $this->input->post('$Poids');
+		$sexe = $this->input->post('sexe');
+		$taille = $this->input->post('taille');
+        $this->Function->inscription($nom, $mdp, $Age, $Poids, $sexe, $taille);
+
+		$this->load->view('acceuil');
+
+	}
+
+	public function get_objectif()
+	{
+		$this->load->model("Function");
+		$nom = $this->input->post('nom');
+		$descri = $this->input->post('descri');
+        $liste = array();
+        $liste['liste_objectif'] = $this->Function->getObjectif($Nom,$descri);
+
+		$this->load->view('acceuil', $liste);
+
+	}
 
 }
