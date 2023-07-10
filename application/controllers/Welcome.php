@@ -25,29 +25,31 @@ class Welcome extends CI_Controller {
 	}
 	
 	public function makaLogin(){
-        $this->load->model("Function");
+        $this->load->model("Model");
 		$nom = $this->input->post('nom');
 		$mdp = $this->input->post('mdp');
         $liste = array();
-        $liste['liste'] = $this->Function->login($nom, $mdp);
-		if (count($liste)==1) {
-			$this->load->view('acceuil');
+        $liste['liste'] = $this->Model->login($nom, $mdp);
+		if ($liste['liste']==null) {
+			// $this->load->view('acceuil');
+			echo 'diso ehh';
 		}
 		else {
-			echo 'diso ehh';
+			$this->load->view('acceuil');
+			// echo 'diso ehh';
 		}
     }
 
 	public function get_inscription()
 	{
-		$this->load->model("Function");
+		$this->load->model("Model");
 		$nom = $this->input->post('nom');
 		$mdp = $this->input->post('mdp');
 		$Age = $this->input->post('$Age');
 		$Poids = $this->input->post('$Poids');
 		$sexe = $this->input->post('sexe');
 		$taille = $this->input->post('taille');
-        $this->Function->inscription($nom, $mdp, $Age, $Poids, $sexe, $taille);
+        $this->Model->inscription($nom, $mdp, $Age, $Poids, $sexe, $taille);
 
 		$this->load->view('acceuil');
 
@@ -55,9 +57,9 @@ class Welcome extends CI_Controller {
 
 	public function get_objectif()
 	{
-		$this->load->model("Function");
+		$this->load->model("Model");
         $liste = array();
-        $liste['liste_objectif'] = $this->Function->getObjectif();
+        $liste['liste_objectif'] = $this->Model->getObjectif();
 
 		$this->load->view('acceuil', $liste);
 
@@ -65,11 +67,11 @@ class Welcome extends CI_Controller {
 
 	public function create_regime()
 	{
-		$this->load->model("Function");
+		$this->load->model("Model");
 		$nom = $this->input->post('nom');
 		$Prix = $this->input->post('Prix');
 		$valeur = $this->input->post('valeur');
-    	$this->Function->create_Regime($Nom,$Prix,$valeur);
+    	$this->Model->create_Regime($Nom,$Prix,$valeur);
 
 		$this->load->view('acceuil_back', $liste);
 
@@ -77,10 +79,10 @@ class Welcome extends CI_Controller {
 
 	public function get_Sport()
 	{
-		$this->load->model("Function");
+		$this->load->model("Model");
 		$nom = $this->input->post('nom');
 		$valeur = $this->input->post('valeur');
-        $this->Function->create_Sport($nom, $valeur);
+        $this->Model->create_Sport($nom, $valeur);
 
 		$this->load->view('acceuil');
 

@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="Projet_S4/Welcome/makaLogin" method="post">
+    <form action="Welcome/makaLogin" method="post">
         <input type="text" name="nom">
         <input type="text" name="mdp">
         <input type="submit" value="Se connecter">
