@@ -14,12 +14,21 @@ class Function extends CI_Model
         $this->db->query($sql); 
     }
 
-    public function getObjectif($Nom,$descri){
-        $request = "select * from Objectif where Nom= '".$nom." and descri='".$descri."'";
+    public function getObjectif(){
+        $request = "select * from Objectif";
         $query=$this->db->query($request);
         return $query->result_array();
     }
 
+    public function create_Regime($Nom,$Prix,$valeur){
+        $request = "insert into Regime(Nom,Prix,valeur) values ('".$Nom.",'".$Prix."','"$valeur"')";
+        $query=$this->db->query($request);
+    }
+
+    public function create_Sport($Nom,$valeur){
+        $request = "insert into Sport(Nom,valeur) values ('".$Nom.",'"$valeur"')";
+        $query=$this->db->query($request);
+    }
 
 }
 

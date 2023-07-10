@@ -20,7 +20,7 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$this->load->view('login');
 		
 	}
 	
@@ -56,12 +56,33 @@ class Welcome extends CI_Controller {
 	public function get_objectif()
 	{
 		$this->load->model("Function");
-		$nom = $this->input->post('nom');
-		$descri = $this->input->post('descri');
         $liste = array();
-        $liste['liste_objectif'] = $this->Function->getObjectif($Nom,$descri);
+        $liste['liste_objectif'] = $this->Function->getObjectif();
 
 		$this->load->view('acceuil', $liste);
+
+	}
+
+	public function create_regime()
+	{
+		$this->load->model("Function");
+		$nom = $this->input->post('nom');
+		$Prix = $this->input->post('Prix');
+		$valeur = $this->input->post('valeur');
+    	$this->Function->create_Regime($Nom,$Prix,$valeur);
+
+		$this->load->view('acceuil_back', $liste);
+
+	}
+
+	public function get_Sport()
+	{
+		$this->load->model("Function");
+		$nom = $this->input->post('nom');
+		$valeur = $this->input->post('valeur');
+        $this->Function->create_Sport($nom, $valeur);
+
+		$this->load->view('acceuil');
 
 	}
 
