@@ -20,7 +20,10 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+<<<<<<< Updated upstream
 		$this->load->view('login');
+=======
+>>>>>>> Stashed changes
 	}
 	
 	public function makaLogin(){
@@ -39,16 +42,21 @@ class Welcome extends CI_Controller {
 		}
     }
 
+	public function redirect()
+	{
+		$this->load->view($this->input->get('redirect'));
+	}
+
 	public function get_inscription()
 	{
 		$this->load->model("Model");
 		$nom = $this->input->post('nom');
 		$mdp = $this->input->post('mdp');
-		$Age = $this->input->post('$Age');
-		$Poids = $this->input->post('$Poids');
+		$Age = $this->input->post('age');
+		$Poids = $this->input->post('poids');
 		$sexe = $this->input->post('sexe');
 		$taille = $this->input->post('taille');
-        $this->Model->inscription($nom, $mdp, $Age, $Poids, $sexe, $taille);
+        $this->Model->inscription($nom, $Age, $Poids, $sexe, $taille, $mdp);
 
 		$this->load->view('acceuil');
 	}

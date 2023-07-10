@@ -8,9 +8,10 @@
 </head>
 <body>
     <form action="Welcome/makaLogin" method="post">
-        <input type="text" name="nom">
-        <input type="text" name="mdp">
-        <input type="submit" value="Se connecter">
+        <input type="text" name="nom"><br>
+        <input type="password" name="mdp"><br>
+        <input type="submit" value="Se connecter"><br>
+        <a href="redirect?redirect=inscription">inscription</a>
     </form>
 </body>
 </html>

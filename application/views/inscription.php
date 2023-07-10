@@ -7,17 +7,18 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="Projet_S4/Welcome/get_inscription" method="post">
-        <input type="text" name="Nom" >
-        <input type="number" name="Age" >
-        <input type="number" name="Poids" >
+    <form action="Welcome/get_inscription" method="post">
+        <input type="text" name="nom" placeholder="Nom" ><br>
+        <input type="number" name="age" placeholder="Age" ><br>
+        <input type="number" name="poids"  placeholder="Poids" ><br>
         <select name="sexe">
             <option value="femme">femme</option>
             <option value="homme">homme</option>
-        </select>
-        <input type="number" name="taille" >
-        <input type="text" name="mdp" >
-        <input type="submit" value="S'inscrire">
+        </select><br>
+        <input type="number" name="taille" placeholder="taille" ><br>
+        <input type="text" name="mdp" placeholder="mot de passe" ><br>
+        <input type="submit" value="S'inscrire"><br>
+        <a href="redirect?redirect=login">login</a>
     </form>
 </body>
 </html>

@@ -11,7 +11,7 @@ class Model extends CI_Model
     }
 
     public function inscription($Nom,$Age,$Poids,$sexe,$taille,$mdp){
-        $sql = "Insert into User(Nom,Age,Poids,sexe,taille,mdp) values ('".$Nom."',".$Age.",".$Poids.",".$sexe.",".$taille.",".$mdp.")";        
+        $sql = "Insert into User(Nom,Age,Poids,sexe,taille,mdp) values ('".$Nom."',".$Age.",".$Poids.",'".$sexe."',".$taille.",'".$mdp."')";        
         $this->db->query($sql); 
     }
 
