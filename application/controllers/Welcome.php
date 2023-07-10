@@ -22,5 +22,21 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('welcome_message');
 		
-	}		
+	}
+	
+	public function makaLogin(){
+        $this->load->model("Function");
+		$nom = $this->input->post('nom');
+		$mdp = $this->input->post('mdp');
+        $liste = array();
+        $liste['liste'] = $this->Function->login($nom, $mdp);
+		if (count($liste)==1) {
+			$this->load->view('acceuil');
+		}
+		else {
+			echo 'diso ehh';
+		}
+    }
+
+
 }
