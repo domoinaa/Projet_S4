@@ -38,20 +38,13 @@ create table Objectif(
 insert into Objectif values (null, ' Augmenter son poids', "Epanouissez-vous en prenant soin de votre corps: Explorez les avantages d'un poids équilibré !");
 insert into Objectif values (null, ' Réduire son poids', "Découvrez les bienfaits d'une vie légère et saine: Adoptez une approche équilibrée pour réduire votre poids !");
 
-create table PorteMonnaie(
-    idPorteMonnaie int primary key auto_increment,
-    idUser int,
-    montant int,
-    foreign key (idUser) references User(idUser)
-);
-
 create table RegimeObjectif(
     idRegimeObjectif int primary key auto_increment,
     idRegime int,
     idObjectif int,
     genre varchar(100),
     foreign key (idRegime) references Regime(idRegime),
-    foreign key (idObjectif) references Regime(idObjectif)
+    foreign key (idObjectif) references Objectif(idObjectif)
 );
 
 insert into RegimeObjectif values (null, 1, 1, 'femme');
@@ -78,7 +71,7 @@ create table SportObjectif(
     idObjectif int,
     genre varchar(100),
     foreign key (idSport) references Sport(idSport),
-    foreign key (idObjectif) references Regime(idObjectif)
+    foreign key (idObjectif) references Objectif(idObjectif)
 );
 
 insert into SportObjectif values (null, 1, 2, 'femme');
