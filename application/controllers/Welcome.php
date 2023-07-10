@@ -30,18 +30,23 @@ class Welcome extends CI_Controller {
         $liste = array();
         $liste['liste'] = $this->Model->login($nom, $mdp);
 		if ($liste['liste']==null) {
-			// $this->load->view('acceuil');
 			echo 'diso ehh';
 		}
 		else {
-			$this->load->view('acceuil');
-			// echo 'diso ehh';
+			// $this->load->view('acceuil');
+			$this->load_accueil();
 		}
     }
 
 	public function redirect()
 	{
 		$this->load->view($this->input->get('redirect'));
+	}
+
+	public function redirect_form()
+	{
+		$data['nom'] = $this->input->get('nom');
+		$this->load->view('form',$data);
 	}
 
 	public function get_inscription()
@@ -54,16 +59,15 @@ class Welcome extends CI_Controller {
 		$sexe = $this->input->post('sexe');
 		$taille = $this->input->post('taille');
         $this->Model->inscription($nom, $Age, $Poids, $sexe, $taille, $mdp);
-
-		$this->load->view('acceuil');
+		// $this->load->view('acceuil');
+		$this->load_accueil();
 	}
 
-	public function get_objectif()
+	public function load_accueil()
 	{
 		$this->load->model("Model");
         $liste = array();
         $liste['liste_objectif'] = $this->Model->getObjectif();
-
 		$this->load->view('acceuil', $liste);
 	}
 
