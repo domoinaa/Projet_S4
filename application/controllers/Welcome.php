@@ -21,7 +21,6 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 		$this->load->view('login');
-		
 	}
 	
 	public function makaLogin(){
@@ -52,7 +51,6 @@ class Welcome extends CI_Controller {
         $this->Model->inscription($nom, $mdp, $Age, $Poids, $sexe, $taille);
 
 		$this->load->view('acceuil');
-
 	}
 
 	public function get_objectif()
@@ -62,7 +60,6 @@ class Welcome extends CI_Controller {
         $liste['liste_objectif'] = $this->Model->getObjectif();
 
 		$this->load->view('acceuil', $liste);
-
 	}
 
 	public function create_regime()
@@ -74,7 +71,6 @@ class Welcome extends CI_Controller {
     	$this->Model->create_Regime($Nom,$Prix,$valeur);
 
 		$this->load->view('acceuil_back', $liste);
-
 	}
 
 	public function create_Sport()
@@ -85,7 +81,6 @@ class Welcome extends CI_Controller {
         $this->Model->create_Sport($nom, $valeur);
 
 		$this->load->view('acceuil');
-
 	}
 
 	public function delete_regime()
@@ -95,7 +90,6 @@ class Welcome extends CI_Controller {
     	$this->Model->delete_Regime($idRegime);
 
 		$this->load->view('acceuil_back');
-
 	}
 
 	public function delete_sport()
@@ -105,7 +99,29 @@ class Welcome extends CI_Controller {
     	$this->Model->delete_Sport($idSport);
 
 		$this->load->view('acceuil_back');
+	}
 
+	public function update_regime()
+	{
+		$this->load->model("Model");
+		$Nom = $this->input->get('Nom');
+		$Prix = $this->input->get('Prix');
+		$valeur = $this->input->get('valeur');
+
+    	$this->Model->update_Regime($Nom, $Prix, $valeur);
+
+		$this->load->view('acceuil_back');
+	}
+
+	public function update_sport()
+	{
+		$this->load->model("Model");
+		$Nom = $this->input->get('Nom');
+		$valeur = $this->input->get('valeur');
+
+    	$this->Model->update_Sport($Nom, $valeur);
+
+		$this->load->view('acceuil_back');
 	}
 
 }

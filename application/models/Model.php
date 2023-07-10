@@ -41,6 +41,15 @@ class Model extends CI_Model
         $query=$this->db->query($request);
     }
 
+    public function update_Regime($Nom, $Prix, $valeur){
+        $request = "UPDATE Regime SET Nom = '".$Nom."', Prix = ".$Prix.", valeur = ".$valeur." WHERE idRegime = ".$idRegime;
+        $query=$this->db->query($request);
+    }
+
+    public function update_Sport($Nom, $valeur){
+        $request = "UPDATE Sport SET Nom = '".$Nom."', valeur = ".$valeur." WHERE idSport = ".$idSport;
+        $query=$this->db->query($request);
+    }
 
 }
 
