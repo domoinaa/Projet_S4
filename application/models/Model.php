@@ -31,6 +31,17 @@ class Model extends CI_Model
         $query=$this->db->query($request);
     }
 
+    public function delete_Regime($idRegime){
+        $request = "DELETE FROM Regime WHERE idRegime= ".$idRegime;
+        $query=$this->db->query($request);
+    }
+
+    public function delete_Sport($idSport){
+        $request = "DELETE FROM Sport WHERE idSport= ".$idSport;
+        $query=$this->db->query($request);
+    }
+
+
 }
 
 ?>

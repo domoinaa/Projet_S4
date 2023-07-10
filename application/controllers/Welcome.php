@@ -77,7 +77,7 @@ class Welcome extends CI_Controller {
 
 	}
 
-	public function get_Sport()
+	public function create_Sport()
 	{
 		$this->load->model("Model");
 		$nom = $this->input->post('nom');
@@ -85,6 +85,26 @@ class Welcome extends CI_Controller {
         $this->Model->create_Sport($nom, $valeur);
 
 		$this->load->view('acceuil');
+
+	}
+
+	public function delete_regime()
+	{
+		$this->load->model("Model");
+		$idRegime = $this->input->get('idRegime');
+    	$this->Model->delete_Regime($idRegime);
+
+		$this->load->view('acceuil_back');
+
+	}
+
+	public function delete_sport()
+	{
+		$this->load->model("Model");
+		$idSport = $this->input->get('idSport');
+    	$this->Model->delete_Sport($idSport);
+
+		$this->load->view('acceuil_back');
 
 	}
 
