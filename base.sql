@@ -144,3 +144,12 @@ SO.genre
 from SportObjectif as SO
 JOIN Sport as s 
 on SO.idSport = s.idSport;
+
+create table validation_monnaie(
+    idValidation int primary key auto_increment,
+    daty date,
+    idPorteMonnaie int,
+    montant int,
+    etat int default 0,
+    foreign key (idPorteMonnaie) references PorteMonnaie(idPorteMonnaie)
+);

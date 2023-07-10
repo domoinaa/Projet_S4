@@ -51,6 +51,40 @@ class Model extends CI_Model
         $query=$this->db->query($request);
     }
 
+    public function getPorteMonnaie(){
+        $request = "select * from PorteMonnaie";
+        $query=$this->db->query($request);
+        return $query->result_array();
+    }
+
+    public function getOneValidation($idUser){
+        $request = "select * from validation_monnaie WHERE idPorteMonnaie = ".$idUser;
+        $query=$this->db->query($request);
+        return $query->result_array();
+    }
+
+    public function getOnePorteMonnaie($idUser){
+        $request = "select * from PorteMonnaie WHERE idUser = ".$idUser ;
+        $query=$this->db->query($request);
+        return $query->result_array();
+    }
+
+    public function getCode(){
+        $request = "select * from Code";
+        $query=$this->db->query($request);
+        return $query->result_array();
+    }
+
+    public function update_Argent($idUser, $montant){
+        $request = "UPDATE PorteMonnaie SET  montant = ".$montant." WHERE idUser = ".$idUser;
+        $query=$this->db->query($request);
+    }
+    
+    public function update_User($Nom,$Age,$Poids,$sexe,$taille,$mdp){
+        $request = "UPDATE User SET Nom = ".$Nom.", Age = ".$Age.", Poids = ".$Poids.", sexe = ".$sexe.", taille = ".$taille.", mdp = ".$mdp." WHERE idUser = ".$idUser;
+        $query=$this->db->query($request);
+    }
+
 }
 
 ?>

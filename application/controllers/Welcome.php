@@ -129,4 +129,48 @@ class Welcome extends CI_Controller {
 		$this->load->view('acceuil_back');
 	}
 
+	public function get_PorteMonnaie()
+	{
+		$this->load->model("Model");
+        $liste = array();
+        $liste['PorteMonnaie'] = $this->Model->getPorteMonnaie();
+
+		$this->load->view('acceuil_back', $liste);
+	}
+
+	public function get_Code()
+	{
+		$this->load->model("Model");
+        $liste = array();
+        $liste['Code'] = $this->Model->getCode();
+
+		$this->load->view('acceuil_back', $liste);
+	}
+
+	public function update_Argent()
+	{
+		$this->load->model("Model");
+		$idValidation = $this->input->get('idValidation');
+		$montantFarany = $this->Model->getOneValidation($idValidation)['montant'];
+		$montant = $this->input->get('montant') + $montantFarany;
+
+    	$this->Model->update_Argent($idUser, $montant);
+
+		$this->load->view('acceuil_back');
+	}
+
+	public function update_User()
+	{
+		$this->load->model("Model");
+		$nom = $this->input->post('nom');
+		$mdp = $this->input->post('mdp');
+		$Age = $this->input->post('age');
+		$Poids = $this->input->post('poids');
+		$sexe = $this->input->post('sexe');
+		$taille = $this->input->post('taille');
+
+    	$this->Model->update_User($nom, $Age, $Poids, $sexe, $taille, $mdp);
+
+		$this->load->view('acceuil_back');
+	}
 }
