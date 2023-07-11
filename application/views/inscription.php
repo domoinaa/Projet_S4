@@ -7,7 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="Welcome/get_inscription" method="post">
+    <form action="index.php/Welcome/get_inscription" method="post">
+        <h1>Inscription</h1>
         <input type="text" name="nom" placeholder="Nom" ><br>
         <input type="number" name="age" placeholder="Age" ><br>
         <input type="number" name="poids"  placeholder="Poids" ><br>
@@ -18,7 +19,7 @@
         <input type="number" name="taille" placeholder="taille" ><br>
         <input type="text" name="mdp" placeholder="mot de passe" ><br>
         <input type="submit" value="S'inscrire"><br>
-        <a href="redirect?redirect=login">login</a>
+        <a href="index.php/Welcome/redirect?redirect=login">login</a>
     </form>
 </body>
 </html>
