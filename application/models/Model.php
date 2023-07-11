@@ -119,11 +119,14 @@ class Model extends CI_Model
         $query=$this->db->query($request);
     }
 
-    public function getSuggestion($idUser, $idObjectif, $Poids){
+    public function getSuggestion($idUser,$idObjectif,$Poids){
+        // echo 'idUser '.$idUser.'<br>';
+        // echo 'idObjectif '.$idObjectif.'<br>';
+        // echo 'poids '.$Poids.'<br>';
         $liste_regime = array();
-        $liste_regime = $this-> getRegimeObjectif($idObjectif);
+        $liste_regime = $this->getRegimeObjectif($idObjectif);
         $liste_sport = array();
-        $liste_sport = $this-> getSportObjectif($idObjectif);
+        $liste_sport = $this->getSportObjectif($idObjectif);
 
         //durée Sport
         $duree = rand(7,60);
@@ -143,7 +146,8 @@ class Model extends CI_Model
         $valeur_regime = 0;
         while ($valeur_regime < $vrai_valeur_Regime) 
         {
-            $idRegime = rand(0, $taille_liste_regime);
+            $idRegime = rand(0, $taille_liste_regime-1);
+            // echo 'idRegime'.$idRegime;
             $quantite = 1;
             $valeur_regime = $valeur_regime + $liste_regime[$idRegime]['valeur'];
             if($valeur_regime >= $vrai_valeur_Regime){
@@ -163,10 +167,11 @@ class Model extends CI_Model
         $valeur_sport = 0;
         while ($valeur_sport < $vrai_valeur_Sport) 
         {
-            $idSport = rand(0, $taille_liste_sport);
+            $idSport = rand(0, $taille_liste_sport-1);
+            // echo 'idSport'.$idSport;
             $quantite = 1;
             $valeur_sport = $valeur_sport + $liste_sport[$idSport]['valeur'];
-            if($valeur_sport >= $vrai_valeur_sport){
+            if($valeur_sport >= $vrai_valeur_Sport){
                 $table2D[] = array(
                     'Nom' => $liste_sport[$idSport]['Nom'],
                     'Quantite' => $quantite
@@ -183,15 +188,41 @@ class Model extends CI_Model
         $totals = array();
 
         foreach ($table2D as $row) {
-            $nom = $row['Nom'];
-            $isany = $row['Quantite'];
+        }
 
-            if (isset($totals[$nom])) {
-                $totals[$nom] += $isany;
-            } else {
-                $totals[$nom] = $isany;
+        for ($i=0; $i < sizeof($table2D); $i++) { 
+            $mitovy = false;
+            $quantite = 1;
+        
+            if ($i > 0) {
+                if ($i != sizeof($table2D) - 1) {
+                    for ($k = $i + 1; $k < sizeof($table2D); $k++) {
+                        if ($table2D[$i]['Nom'] == $table2D[$k]['Nom']) {
+                            $quantite++;
+                        }
+                    }
+                }
+        
+                for ($j = 0; $j < $i; $j++) {
+                    if ($table2D[$i]['Nom'] == $table2D[$j]['Nom']) {
+                        $mitovy = true;
+                        // echo 'mitovy';
+                        $quantite++;
+                    }
+                }
+            }
+        
+            if ($mitovy == false) {
+                $totals[$i]['Nom'] = $table2D[$i]['Nom'];
+                $totals[$i]['Quantite'] = $quantite;
             }
         }
+
+        foreach($totals as $total)
+        {
+            // echo $total['Nom'].' : '.$total['Quantite'];
+        }
+        
         return $totals;
     }
 

@@ -129,6 +129,7 @@ r.idRegime,
 r.Nom,
 r.prix,
 r.valeur,
+RO.idObjectif,
 RO.genre
 from RegimeObjectif as RO
 JOIN Regime as r 
@@ -140,6 +141,7 @@ SO.idSportObjectif,
 s.idSport,
 s.Nom,
 s.valeur,
+SO.idObjectif,
 SO.genre
 from SportObjectif as SO
 JOIN Sport as s 
