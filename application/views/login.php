@@ -7,11 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="Welcome/makaLogin" method="post">
+    <form action="index.php/Welcome/makaLogin" method="post">
+        <h1>Login</h1>
         <input type="text" name="nom"><br>
         <input type="password" name="mdp"><br>
         <input type="submit" value="Se connecter"><br>
-        <a href="redirect?redirect=inscription">inscription</a>
+        <a href="index.php/Welcome/redirect?redirect=inscription">inscription</a>
     </form>
 </body>
 </html>

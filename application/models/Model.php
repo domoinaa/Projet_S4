@@ -22,24 +22,24 @@ class Model extends CI_Model
     }
 
     public function getLast_Sport(){
-        $request = "select max(idSport) from Sport";
+        $request = "select max(idSport) as idSport from Sport";
         $query=$this->db->query($request);
         return $query->result_array();
     }
 
     public function getLast_Regime(){
-        $request = "select max(idRegime) from Regime";
+        $request = "select max(idRegime) as idRegime from Regime";
         $query=$this->db->query($request);
         return $query->result_array();
     }
 
     public function create_Regime($Nom,$Prix,$valeur){
-        $request = "insert into Regime(Nom,Prix,valeur) values ('".$Nom.",'".$Prix."','".$valeur."')";
+        $request = "insert into Regime(Nom,Prix,valeur) values ('".$Nom."',".$Prix.",".$valeur.")";
         $query=$this->db->query($request);
     }
 
     public function create_Sport($Nom,$valeur){
-        $request = "insert into Sport(Nom,valeur) values ('".$Nom.",'".$valeur."')";
+        $request = "insert into Sport(Nom,valeur) values ('".$Nom."',".$valeur.")";
         $query=$this->db->query($request);
     }
 
@@ -107,6 +107,16 @@ class Model extends CI_Model
         $request = "select * from SportParRapportObjectif where idObjectif=".$idObjectif;
         $query=$this->db->query($request);
         return $query->result_array();
+    }
+
+    public function insert_RegimeObjectif($idRegime,$idObjectif,$genre){
+        $request = "INSERT INTO RegimeObjectif VALUES (null,".$idRegime.",".$idObjectif.",'".$genre."')";
+        $query=$this->db->query($request);
+    }
+
+    public function insert_SportObjectif($idSport,$idObjectif,$genre){
+        $request = "INSERT INTO SportObjectif VALUES (null,".$idSport.",".$idObjectif.",'".$genre."')";
+        $query=$this->db->query($request);
     }
 
     public function getSuggestion($idUser, $idObjectif, $Poids){
