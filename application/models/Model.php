@@ -158,7 +158,20 @@ class Model extends CI_Model
 
         }
 
-        return $table2D;
+        $totals = array();
+
+        foreach ($table2D as $row) {
+            $nom = $row['Nom'];
+            $isany = $row['Quantite'];
+
+            if (isset($totals[$nom])) {
+                $totals[$nom] += $isany;
+            } else {
+                $totals[$nom] = $isany;
+            }
+        }
+
+        return $totals;
 
     }
 
