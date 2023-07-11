@@ -85,6 +85,83 @@ class Model extends CI_Model
         $query=$this->db->query($request);
     }
 
+    public function getRegimeObjectif($idObjectif){
+        $request = "select * from RegimeParRapportObjectif where idObjectif=".$idObjectif;
+        $query=$this->db->query($request);
+        return $query->result_array();
+    }
+
+    public function getSportObjectif($idObjectif){
+        $request = "select * from SportParRapportObjectif where idObjectif=".$idObjectif;
+        $query=$this->db->query($request);
+        return $query->result_array();
+    }
+
+    public function getSuggestion($idUser, $idObjectif, $Poids){
+        $liste_regime = array();
+        $liste_regime = $this-> getRegimeObjectif($idObjectif);
+        $liste_sport = array();
+        $liste_sport = $this-> getSportObjectif($idObjectif);
+
+        //durée Sport
+        $duree = rand(7,60);
+
+        //pourcentage régime - Sport
+        $pourcentageRegime = rand(0,100);
+        $pourcentageSport = 100 - $pourcentageRegime;
+
+        $vrai_valeur_Regime = $Poids * ($pourcentageRegime/100);
+        $vrai_valeur_Sport = $Poids * ($pourcentageSport/100);
+
+        $taille_liste_regime = count($liste_regime);
+        $taille_liste_sport = count($liste_sport);
+
+        $table2D = array();
+
+        $valeur_regime = 0;
+        while ($valeur_regime < $vrai_valeur_Regime) 
+        {
+            $idRegime = rand(0, $taille_liste_regime);
+            $quantite = 1;
+            $valeur_regime = $valeur_regime + $liste_regime[$idRegime]['valeur'];
+            if($valeur_regime => $vrai_valeur_Regime){
+                $table2D[] = array(
+                    'Nom' => $liste_regime[$idRegime]['Nom'],
+                    'Quantite' => $quantite
+                );
+                break;
+            }
+            $table2D[] = array(
+                'Nom' => $liste_regime[$idRegime]['Nom'],
+                'Quantite' => $quantite
+            );
+
+        }
+
+        $valeur_sport = 0;
+        while ($valeur_sport < $vrai_valeur_Sport) 
+        {
+            $idSport = rand(0, $taille_liste_sport);
+            $quantite = 1;
+            $valeur_sport = $valeur_sport + $liste_sport[$idSport]['valeur'];
+            if($valeur_sport => $vrai_valeur_sport){
+                $table2D[] = array(
+                    'Nom' => $liste_sport[$idSport]['Nom'],
+                    'Quantite' => $quantite
+                );
+                break;
+            }
+            $table2D[] = array(
+                'Nom' => $liste_sport[$idSport]['Nom'],
+                'Quantite' => $quantite
+            );
+
+        }
+
+        return $table2D;
+
+    }
+
 }
 
 ?>
