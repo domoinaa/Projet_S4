@@ -34,6 +34,7 @@ class Welcome extends CI_Controller {
 		}
 		else {
 			// $this->load->view('acceuil');
+			$this->session->set_userdata('idUser',$liste['liste'][0]['idUser']);
 			$this->load_accueil();
 		}
     }
@@ -46,6 +47,7 @@ class Welcome extends CI_Controller {
 	public function redirect_form()
 	{
 		$data['nom'] = $this->input->get('nom');
+		$data['idObjectif'] = $this->input->get('idObjectif');
 		$this->load->view('form',$data);
 	}
 
@@ -178,5 +180,14 @@ class Welcome extends CI_Controller {
 		$this->load->view('acceuil_back');
 	}
 
-	
+	public function suggestion()
+	{
+		$this->load->model("Model");
+		$idUser = $this->session->userdata('idUser');
+		$idObjectif = $this->input->post('idObjectif');
+		$poids = $this->input->post('poids');
+		$data['suggestions'] = $this->Model->getSuggestion($idUser, $idObjectif, $poids);
+		$this->load->view('Suggestion',$data);
+	}
+
 }
