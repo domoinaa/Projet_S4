@@ -30,18 +30,25 @@ class Welcome extends CI_Controller {
         $liste = array();
         $liste['liste'] = $this->Model->login($nom, $mdp);
 		if ($liste['liste']==null) {
-			// $this->load->view('acceuil');
 			echo 'diso ehh';
 		}
 		else {
-			$this->load->view('acceuil');
-			// echo 'diso ehh';
+			// $this->load->view('acceuil');
+			$this->session->set_userdata('idUser',$liste['liste'][0]['idUser']);
+			$this->load_accueil();
 		}
     }
 
 	public function redirect()
 	{
 		$this->load->view($this->input->get('redirect'));
+	}
+
+	public function redirect_form()
+	{
+		$data['nom'] = $this->input->get('nom');
+		$data['idObjectif'] = $this->input->get('idObjectif');
+		$this->load->view('form',$data);
 	}
 
 	public function get_inscription()
@@ -54,16 +61,15 @@ class Welcome extends CI_Controller {
 		$sexe = $this->input->post('sexe');
 		$taille = $this->input->post('taille');
         $this->Model->inscription($nom, $Age, $Poids, $sexe, $taille, $mdp);
-
-		$this->load->view('acceuil');
+		// $this->load->view('acceuil');
+		$this->load_accueil();
 	}
 
-	public function get_objectif()
+	public function load_accueil()
 	{
 		$this->load->model("Model");
         $liste = array();
         $liste['liste_objectif'] = $this->Model->getObjectif();
-
 		$this->load->view('acceuil', $liste);
 	}
 
@@ -127,6 +133,61 @@ class Welcome extends CI_Controller {
     	$this->Model->update_Sport($Nom, $valeur);
 
 		$this->load->view('acceuil_back');
+	}
+
+	public function get_PorteMonnaie()
+	{
+		$this->load->model("Model");
+        $liste = array();
+        $liste['PorteMonnaie'] = $this->Model->getPorteMonnaie();
+
+		$this->load->view('acceuil_back', $liste);
+	}
+
+	public function get_Code()
+	{
+		$this->load->model("Model");
+        $liste = array();
+        $liste['Code'] = $this->Model->getCode();
+
+		$this->load->view('acceuil_back', $liste);
+	}
+
+	public function update_Argent()
+	{
+		$this->load->model("Model");
+		$idValidation = $this->input->get('idValidation');
+		$montantFarany = $this->Model->getOneValidation($idValidation)['montant'];
+		$montant = $this->input->get('montant') + $montantFarany;
+
+    	$this->Model->update_Argent($idUser, $montant);
+
+		$this->load->view('acceuil_back');
+	}
+
+	public function update_User()
+	{
+		$this->load->model("Model");
+		$nom = $this->input->post('nom');
+		$mdp = $this->input->post('mdp');
+		$Age = $this->input->post('age');
+		$Poids = $this->input->post('poids');
+		$sexe = $this->input->post('sexe');
+		$taille = $this->input->post('taille');
+
+    	$this->Model->update_User($nom, $Age, $Poids, $sexe, $taille, $mdp);
+
+		$this->load->view('acceuil_back');
+	}
+
+	public function suggestion()
+	{
+		$this->load->model("Model");
+		$idUser = $this->session->userdata('idUser');
+		$idObjectif = $this->input->post('idObjectif');
+		$poids = $this->input->post('poids');
+		$data['suggestions'] = $this->Model->getSuggestion($idUser, $idObjectif, $poids);
+		$this->load->view('Suggestion',$data);
 	}
 
 }
