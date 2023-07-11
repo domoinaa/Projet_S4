@@ -251,6 +251,21 @@ body {
   animation: is-gx 1.25s;
 }
 
+input[type="submit"]{
+    width: 180px;
+    height: 50px;
+    border-radius: 25px;
+    margin-top: 50px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1.15px;
+    background-color: #E62A22;
+    color: #ffffff;
+    /* box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #f9f9f9; */
+    border: none;
+    outline: none;
+}
+
 @keyframes is-gx {
   0%, 10%, 100% {
     width: 400px;
