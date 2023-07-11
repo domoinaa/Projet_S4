@@ -21,6 +21,18 @@ class Model extends CI_Model
         return $query->result_array();
     }
 
+    public function getLast_Sport(){
+        $request = "select max(idSport) from Sport";
+        $query=$this->db->query($request);
+        return $query->result_array();
+    }
+
+    public function getLast_Regime(){
+        $request = "select max(idRegime) from Regime";
+        $query=$this->db->query($request);
+        return $query->result_array();
+    }
+
     public function create_Regime($Nom,$Prix,$valeur){
         $request = "insert into Regime(Nom,Prix,valeur) values ('".$Nom.",'".$Prix."','".$valeur."')";
         $query=$this->db->query($request);
@@ -124,7 +136,7 @@ class Model extends CI_Model
             $idRegime = rand(0, $taille_liste_regime);
             $quantite = 1;
             $valeur_regime = $valeur_regime + $liste_regime[$idRegime]['valeur'];
-            if($valeur_regime => $vrai_valeur_Regime){
+            if($valeur_regime >= $vrai_valeur_Regime){
                 $table2D[] = array(
                     'Nom' => $liste_regime[$idRegime]['Nom'],
                     'Quantite' => $quantite
@@ -144,7 +156,7 @@ class Model extends CI_Model
             $idSport = rand(0, $taille_liste_sport);
             $quantite = 1;
             $valeur_sport = $valeur_sport + $liste_sport[$idSport]['valeur'];
-            if($valeur_sport => $vrai_valeur_sport){
+            if($valeur_sport >= $vrai_valeur_sport){
                 $table2D[] = array(
                     'Nom' => $liste_sport[$idSport]['Nom'],
                     'Quantite' => $quantite
@@ -170,9 +182,7 @@ class Model extends CI_Model
                 $totals[$nom] = $isany;
             }
         }
-
         return $totals;
-
     }
 
 }
